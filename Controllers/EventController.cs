@@ -110,7 +110,7 @@ namespace UniversityEventManagementAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Models.Domain.Event>>  DeleteEvent(Guid id)
+        public async Task<ActionResult<Models.Domain.Event>> DeleteEvent(Guid id)
         {
             Models.Domain.Event deleted = GetEventById(id);
 
