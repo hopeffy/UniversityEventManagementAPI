@@ -46,11 +46,13 @@ namespace UniversityEventManagementAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllPeople()
+        public async Task<List<Models.Domain.Person>> GetAllPeople()
         {
+            List<Models.Domain.Person> response = new();
             var events = _appDbContext.Person.ToList();
+            response = events;
 
-            return Ok(events);
+            return response;
 
         }
 
