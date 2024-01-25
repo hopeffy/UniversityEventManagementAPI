@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using UniversityEventManagementAPI.Models;
 using UniversityEventManagementAPI.Models.DTO;
@@ -52,14 +53,77 @@ namespace UniversityEventManagementAPI.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Models.Domain.Event>>> GetAllEvents() {
-
-
+        public IActionResult GetAllEvents() {
             var events = _appDbContext.Event.ToList();
 
-           return Ok(events);
+            return Ok(events);
 
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Models.Domain.Event>> getEvent(Guid id)
+        {
+            var eventById = await _appDbContext.Event.FindAsync(id);
+            return Ok(eventById);
+        }
+
+        [NonAction]
+        public Models.Domain.Event GetEventById(Guid id)
+        {
+            var eventById = _appDbContext.Event.Find(id);
+            if (eventById == null)
+            {
+                throw new KeyNotFoundException("User Not Found");
+            }
+                return eventById;
+        }
+
+        [HttpPut("{id}")]
+        public Task<ActionResult<Models.Domain.Event>> UpdateEvent([FromBody]Models.Domain.Event request)
+        {
+
+            /*  Models.Domain.Event newEvent = _appDbContext.Event.Find(request.Id);
+
+
+             if(newEvent != null)
+             {
+                 newEvent.name = request.name; 
+                 newEvent.status = request.status;
+                 newEvent.description = request.description;
+                 newEvent.startDate = request.startDate;
+                 newEvent.endDate = request.endDate;
+
+                 await _appDbContext.Event.AddAsync(newEvent);
+
+             }
+             await _appDbContext.SaveChangesAsync(); */
+
+            _appDbContext.Event.Attach(request);
+            _appDbContext.Event.Entry(request).State = EntityState.Modified;
+
+            _appDbContext.Event.Update(request);
+            _appDbContext.SaveChanges();
+
+
+            return Task.FromResult<ActionResult<Models.Domain.Event>>(Ok(request));
+
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Models.Domain.Event>>  DeleteEvent(Guid id)
+        {
+            Models.Domain.Event deleted = GetEventById(id);
+
+            _appDbContext.Event.Remove(deleted);
+
+            _appDbContext.SaveChanges();
+
+            return Ok(deleted);
+        }
+
+
+
+
 
 
 

@@ -45,7 +45,7 @@ namespace UniversityEventManagementAPI.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Event");
+                    b.ToTable("Event", (string)null);
                 });
 
             modelBuilder.Entity("UniversityEventManagementAPI.Models.Domain.Person", b =>
@@ -68,7 +68,7 @@ namespace UniversityEventManagementAPI.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Person");
+                    b.ToTable("Person", (string)null);
                 });
 #pragma warning restore 612, 618
         }
