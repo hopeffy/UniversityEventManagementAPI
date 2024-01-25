@@ -1,4 +1,6 @@
-﻿namespace UniversityEventManagementAPI.Models.DTO
+﻿using UniversityEventManagementAPI.Models.Domain;
+
+namespace UniversityEventManagementAPI.Models.DTO
 {
     public class CreateEventRequestDto
     {
@@ -8,5 +10,9 @@
 
         public DateTime? startDate { get; set; }
         public DateTime? endDate { get; set; }
+
+        public string? Location { get; set; }
+
+        public Guid organizerId { get; set; }
     }
 }

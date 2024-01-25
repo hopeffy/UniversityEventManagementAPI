@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using System;
 using UniversityEventManagementAPI.Models;
 using UniversityEventManagementAPI.Models.DTO;
 
@@ -56,10 +57,11 @@ namespace UniversityEventManagementAPI.Controllers
 
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Models.Domain.Person>> getPerson(Guid id)
+        [HttpPost("{id}")]
+        public async Task<ActionResult<Models.Domain.Person>> getPerson(String id)
         {
-            var personById = await _appDbContext.Person.FindAsync(id);
+            Guid guid = new Guid(id);
+            var personById = await _appDbContext.Person.FindAsync(guid);
             return Ok(personById);
         }
 

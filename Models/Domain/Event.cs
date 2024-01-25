@@ -11,9 +11,9 @@
         public DateTime? startDate { get; set; }
         public DateTime? endDate { get; set; }
 
-        public string Location { get; set; }
+        public string? Location { get; set; }
 
-        public Person organizer { get; set; }
+        public Guid organizerId { get; set; }
 
     }
 }

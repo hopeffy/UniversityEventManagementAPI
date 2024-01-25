@@ -30,7 +30,11 @@ namespace UniversityEventManagementAPI.Controllers
                 status = request.status,
                 description = request.description,
                 startDate = request.startDate,
-                endDate = request.endDate
+                endDate = request.endDate,
+                organizerId = request.organizerId,
+                Location = request.Location
+
+
             };
 
             await _appDbContext.Event.AddAsync(eventObj);
@@ -44,7 +48,9 @@ namespace UniversityEventManagementAPI.Controllers
                 status = eventObj.status,
                 description = eventObj.description,
                 startDate = eventObj.startDate,
-                endDate = eventObj.endDate
+                endDate = eventObj.endDate,
+                organizerId = eventObj.organizerId,
+                Location = eventObj.Location
             };
 
             return Ok(response);
