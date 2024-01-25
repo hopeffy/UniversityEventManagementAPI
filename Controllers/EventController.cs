@@ -73,7 +73,7 @@ namespace UniversityEventManagementAPI.Controllers
             var eventById = _appDbContext.Event.Find(id);
             if (eventById == null)
             {
-                throw new KeyNotFoundException("User Not Found");
+                throw new KeyNotFoundException("Event Not Found");
             }
                 return eventById;
         }
