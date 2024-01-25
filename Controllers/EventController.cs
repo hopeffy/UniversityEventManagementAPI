@@ -59,7 +59,7 @@ namespace UniversityEventManagementAPI.Controllers
 
 
         [HttpGet]
-        public IActionResult GetAllEvents() {
+        public async Task<IActionResult> GetAllEvents() {
             var events = _appDbContext.Event.ToList();
 
             return Ok(events);
